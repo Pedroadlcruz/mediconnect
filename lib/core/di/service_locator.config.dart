@@ -25,8 +25,8 @@ import '../../features/consultation/data/data_sources/connection_audit_service.d
     as _i558;
 import '../../features/consultation/data/data_sources/prescription_service.dart'
     as _i976;
-import '../../features/consultation/data/data_sources/signaling_service.dart'
-    as _i906;
+import '../../features/consultation/data/data_sources/signaling_bridge.dart'
+    as _i215;
 import '../../features/consultation/data/repositories/connection_repository_impl.dart'
     as _i995;
 import '../../features/consultation/presentation/bloc/call_bloc.dart' as _i156;
@@ -59,8 +59,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i25.AuthRemoteDataSource>(
       () => _i25.AuthRemoteDataSourceImpl(gh<_i59.FirebaseAuth>()),
     );
-    gh.lazySingleton<_i906.SignalingService>(
-      () => _i906.SignalingService(gh<_i974.FirebaseFirestore>()),
+    gh.lazySingleton<_i215.SignalingBridge>(
+      () => _i215.SignalingBridge(gh<_i974.FirebaseFirestore>()),
     );
     gh.lazySingleton<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(gh<_i25.AuthRemoteDataSource>()),
@@ -73,7 +73,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i806.ChatBloc>(() => _i806.ChatBloc(gh<_i718.ChatService>()));
     gh.factory<_i156.CallBloc>(
-      () => _i156.CallBloc(gh<_i906.SignalingService>()),
+      () => _i156.CallBloc(gh<_i215.SignalingBridge>()),
     );
     gh.factory<_i206.PreConsultationBloc>(
       () => _i206.PreConsultationBloc(gh<_i995.ConnectionRepository>()),

@@ -29,120 +29,209 @@ class _PreConsultationBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PreConsultationBloc, PreConsultationState>(
-      builder: (context, state) {
-        if (state is PreConsultationChecking) {
-          return const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 20),
-                Text('Verificando conexión y permisos...'),
-              ],
-            ),
-          );
-        } else if (state is PreConsultationReady) {
-          final status = state.status;
-          final allGood = status.isReady;
-
-          return Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  'Comprobación de Sistema',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 40),
-                _StatusItem(
-                  label: 'Conexión a Internet',
-                  isOk: status.hasInternet,
-                  icon: Icons.wifi,
-                ),
-                _StatusItem(
-                  label: 'Cámara (Permiso)',
-                  isOk: status.hasCameraPermission,
-                  icon: Icons.camera_alt,
-                ),
-                _StatusItem(
-                  label: 'Micrófono (Permiso)',
-                  isOk: status.hasMicrophonePermission,
-                  icon: Icons.mic,
-                ),
-                _StatusItem(
-                  label: 'Cámara Disponible',
-                  isOk: status.isCameraAvailable,
-                  icon: Icons.videocam,
-                ),
-                _StatusItem(
-                  label: 'Micrófono Disponible',
-                  isOk: status.isMicrophoneAvailable,
-                  icon: Icons.mic_none,
-                ),
-                const Spacer(),
-                if (allGood)
-                  ElevatedButton(
-                    onPressed: () {
-                      String path = '/call';
-                      if (roomId != null && roomId!.isNotEmpty) {
-                        path += '?roomId=$roomId';
-                      }
-                      context.push(path);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: Colors.green,
-                    ),
-                    child: const Text(
-                      'Iniciar Consulta',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  )
-                else
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<PreConsultationBloc>().add(
-                        StartConnectionCheck(),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: Colors.orange,
-                    ),
-                    child: const Text(
-                      'Reintentar Verificación',
-                      style: TextStyle(fontSize: 18),
-                    ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF4CA1AF), Color(0xFF2C3E50)],
+        ),
+      ),
+      child: BlocBuilder<PreConsultationBloc, PreConsultationState>(
+        builder: (context, state) {
+          if (state is PreConsultationChecking) {
+            return const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(color: Colors.white),
+                  SizedBox(height: 20),
+                  Text(
+                    'Verificando conexión y permisos...',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
-              ],
-            ),
-          );
-        } else if (state is PreConsultationError) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.error_outline, size: 64, color: Colors.red),
-                const SizedBox(height: 16),
-                Text('Error: ${state.message}'),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<PreConsultationBloc>().add(
-                      StartConnectionCheck(),
-                    );
-                  },
-                  child: const Text('Reintentar'),
+                ],
+              ),
+            );
+          } else if (state is PreConsultationReady) {
+            final status = state.status;
+            final allGood = status.isReady;
+
+            return Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Preparando Consulta',
+                            style: Theme.of(context).textTheme.headlineSmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xFF2C3E50),
+                                ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Por favor verifique que todo funcione correctamente antes de ingresar.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          const SizedBox(height: 30),
+                          _StatusItem(
+                            label: 'Conexión a Internet',
+                            isOk: status.hasInternet,
+                            icon: Icons.wifi,
+                          ),
+                          _StatusItem(
+                            label: 'Permiso de Cámara',
+                            isOk: status.hasCameraPermission,
+                            icon: Icons.camera_alt,
+                          ),
+                          _StatusItem(
+                            label: 'Permiso de Micrófono',
+                            isOk: status.hasMicrophonePermission,
+                            icon: Icons.mic,
+                          ),
+                          _StatusItem(
+                            label: 'Cámara Disponible',
+                            isOk: status.isCameraAvailable,
+                            icon: Icons.videocam,
+                          ),
+                          _StatusItem(
+                            label: 'Micrófono Disponible',
+                            isOk: status.isMicrophoneAvailable,
+                            icon: Icons.mic_none,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    if (allGood)
+                      ElevatedButton(
+                        onPressed: () {
+                          String path = '/call';
+                          if (roomId != null && roomId!.isNotEmpty) {
+                            path += '?roomId=$roomId';
+                          }
+                          context.push(path);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          backgroundColor: const Color(0xFF00BFA5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          elevation: 5,
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Unirse a la Llamada',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Icon(Icons.video_call, color: Colors.white),
+                          ],
+                        ),
+                      )
+                    else
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<PreConsultationBloc>().add(
+                            StartConnectionCheck(),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          backgroundColor: Colors.orangeAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: const Text(
+                          'Reintentar Verificación',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        }
-        return Container();
-      },
+              ),
+            );
+          } else if (state is PreConsultationError) {
+            return Center(
+              child: Container(
+                margin: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.error_outline,
+                      size: 64,
+                      color: Colors.redAccent,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Ocurrió un error',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      state.message,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<PreConsultationBloc>().add(
+                          StartConnectionCheck(),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text('Reintentar'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          return Container();
+        },
+      ),
     );
   }
 }

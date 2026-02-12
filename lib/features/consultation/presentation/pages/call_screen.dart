@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:go_router/go_router.dart';
@@ -169,6 +170,45 @@ class _CallView extends StatelessWidget {
                     quality: state.connectionQuality,
                     isAudioOnly: state.isAudioOnly,
                     roomId: state.roomId,
+                  ),
+                ),
+
+                // Room ID Display (so caller can share it)
+                Positioned(
+                  top: 50,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Clipboard.setData(ClipboardData(text: state.roomId));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Room ID copiado: ${state.roomId}'),
+                            duration: const Duration(seconds: 5),
+                            backgroundColor: const Color(0xFF2C3E50),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black54,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          'ID: ${state.roomId.length > 8 ? '${state.roomId.substring(0, 8)}...' : state.roomId}',
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
 
