@@ -220,6 +220,8 @@ class _CallView extends StatelessWidget {
                   child: _CallControls(
                     roomId: state.roomId,
                     isAudioOnly: state.isAudioOnly,
+                    isMuted: state.isMuted,
+                    isCameraOff: state.isCameraOff,
                   ),
                 ),
               ],
@@ -488,8 +490,15 @@ class _ConnectionFailureView extends StatelessWidget {
 class _CallControls extends StatelessWidget {
   final String roomId;
   final bool isAudioOnly;
+  final bool isMuted;
+  final bool isCameraOff;
 
-  const _CallControls({required this.roomId, required this.isAudioOnly});
+  const _CallControls({
+    required this.roomId,
+    required this.isAudioOnly,
+    this.isMuted = false,
+    this.isCameraOff = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -500,8 +509,11 @@ class _CallControls extends StatelessWidget {
         FloatingActionButton(
           heroTag: 'mic',
           onPressed: () => callBloc.add(ToggleMicrophone()),
-          backgroundColor: Colors.white,
-          child: const Icon(Icons.mic, color: Colors.black),
+          backgroundColor: isMuted ? Colors.red : Colors.white,
+          child: Icon(
+            isMuted ? Icons.mic_off : Icons.mic,
+            color: isMuted ? Colors.white : Colors.black,
+          ),
         ),
         FloatingActionButton(
           heroTag: 'chat',
@@ -519,8 +531,11 @@ class _CallControls extends StatelessWidget {
           FloatingActionButton(
             heroTag: 'cam',
             onPressed: () => callBloc.add(ToggleCamera()),
-            backgroundColor: Colors.white,
-            child: const Icon(Icons.videocam, color: Colors.black),
+            backgroundColor: isCameraOff ? Colors.red : Colors.white,
+            child: Icon(
+              isCameraOff ? Icons.videocam_off : Icons.videocam,
+              color: isCameraOff ? Colors.white : Colors.black,
+            ),
           ),
           FloatingActionButton(
             heroTag: 'switch',

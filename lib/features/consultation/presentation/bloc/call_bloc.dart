@@ -471,6 +471,10 @@ class CallBloc extends Bloc<CallEvent, CallState> {
     if (_localStream != null && _localStream!.getVideoTracks().isNotEmpty) {
       final bool enabled = _localStream!.getVideoTracks()[0].enabled;
       _localStream!.getVideoTracks()[0].enabled = !enabled;
+
+      if (state is CallReady) {
+        emit((state as CallReady).copyWith(isCameraOff: !(!enabled)));
+      }
     }
   }
 
@@ -478,6 +482,10 @@ class CallBloc extends Bloc<CallEvent, CallState> {
     if (_localStream != null && _localStream!.getAudioTracks().isNotEmpty) {
       final bool enabled = _localStream!.getAudioTracks()[0].enabled;
       _localStream!.getAudioTracks()[0].enabled = !enabled;
+
+      if (state is CallReady) {
+        emit((state as CallReady).copyWith(isMuted: !(!enabled)));
+      }
     }
   }
 

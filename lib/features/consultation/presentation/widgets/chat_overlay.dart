@@ -42,12 +42,20 @@ class _ChatOverlayState extends State<ChatOverlay> {
 
   @override
   Widget build(BuildContext context) {
+    // Check if keyboard is open
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final isKeyboardOpen = bottomInset > 0;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
-      height: MediaQuery.of(context).size.height * 0.55,
+      // Adjust height when keyboard is open to allow seeing messages
+      height: isKeyboardOpen ? screenHeight * 0.85 : screenHeight * 0.55,
       decoration: BoxDecoration(
         color: Colors.grey[900],
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
+      // Add padding for keyboard
+      padding: EdgeInsets.only(bottom: bottomInset),
       child: Column(
         children: [
           // Handle bar
@@ -129,7 +137,12 @@ class _ChatOverlayState extends State<ChatOverlay> {
           ),
           // Input field
           Container(
-            padding: const EdgeInsets.fromLTRB(12, 8, 12, 24),
+            padding: const EdgeInsets.fromLTRB(
+              12,
+              8,
+              12,
+              12,
+            ), // Reduced bottom padding
             decoration: BoxDecoration(
               color: Colors.grey[850],
               border: Border(top: BorderSide(color: Colors.grey[700]!)),

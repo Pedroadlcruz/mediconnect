@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
@@ -13,6 +13,15 @@ class SignalingBridge {
   // Mandatory method per internal standards
   void negotiateHandshake() {
     print('DEBUG: [SignalingBridge] Negotiating handshake...');
+  }
+
+  String _generateShortId() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // No I, O, 0, 1
+    final random = Random();
+    return List.generate(
+      6,
+      (index) => chars[random.nextInt(chars.length)],
+    ).join();
   }
 
   Future<String> createRoom(RTCPeerConnection peerConnection) async {
@@ -37,7 +46,8 @@ class SignalingBridge {
       });
     };
 
-    roomRef = _db.collection('rooms').doc();
+    final shortId = _generateShortId();
+    roomRef = _db.collection('rooms').doc(shortId);
     print('DEBUG: [SignalingBridge] Created room ref: ${roomRef.id}');
 
     // Create connection offer

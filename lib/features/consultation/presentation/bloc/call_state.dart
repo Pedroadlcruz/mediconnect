@@ -19,6 +19,8 @@ class CallReady extends CallState {
   final RTCVideoRenderer remoteRenderer;
   final ConnectionQuality connectionQuality;
   final bool isAudioOnly;
+  final bool isMuted;
+  final bool isCameraOff;
   final int reconnectAttempts;
 
   const CallReady({
@@ -27,12 +29,16 @@ class CallReady extends CallState {
     required this.remoteRenderer,
     this.connectionQuality = ConnectionQuality.good,
     this.isAudioOnly = false,
+    this.isMuted = false,
+    this.isCameraOff = false,
     this.reconnectAttempts = 0,
   });
 
   CallReady copyWith({
     ConnectionQuality? connectionQuality,
     bool? isAudioOnly,
+    bool? isMuted,
+    bool? isCameraOff,
     int? reconnectAttempts,
   }) {
     return CallReady(
@@ -41,6 +47,8 @@ class CallReady extends CallState {
       remoteRenderer: remoteRenderer,
       connectionQuality: connectionQuality ?? this.connectionQuality,
       isAudioOnly: isAudioOnly ?? this.isAudioOnly,
+      isMuted: isMuted ?? this.isMuted,
+      isCameraOff: isCameraOff ?? this.isCameraOff,
       reconnectAttempts: reconnectAttempts ?? this.reconnectAttempts,
     );
   }
@@ -50,6 +58,8 @@ class CallReady extends CallState {
     roomId,
     connectionQuality,
     isAudioOnly,
+    isMuted,
+    isCameraOff,
     reconnectAttempts,
   ];
 }
