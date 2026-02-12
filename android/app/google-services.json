@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "473931097111",
+    "project_id": "mediconnect-flutter-demo",
+    "storage_bucket": "mediconnect-flutter-demo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473931097111:android:b06db38e3c28a8dd4da852",
+        "android_client_info": {
+          "package_name": "com.mediconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6xCUx3GVZa7Shw5F-bayNAoexIqTfwac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473931097111:android:7f3723eb24e4f8624da852",
+        "android_client_info": {
+          "package_name": "com.mediconnect.mediconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6xCUx3GVZa7Shw5F-bayNAoexIqTfwac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
