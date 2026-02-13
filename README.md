@@ -6,6 +6,7 @@ Implementación de una solución de asistencia remota para cerrar la brecha de s
 
 - **MVP actual:** [Ver Demo del MVP](https://docs.google.com/videos/d/1NF1cT0SC4udx1FGRa3llg1IiLmlEVgLwVpOQqE9j8WQ/edit?usp=sharing)
 - **🧭 Visión del producto (Prototipo Stitch):** [Ver hacia dónde se dirige la app](https://docs.google.com/videos/d/1dYsySLo16Nj8d2MIZOGyy893_BlAnCcv9T5B6zGCC-M/edit?usp=sharing)
+- **📄 Decisiones Técnicas:** [Ver documento de decisiones técnicas](https://drive.google.com/file/d/186jxs2Grlp8VNQc75UdOzFo3GAUPW1lR/view?usp=sharing)
 
 ---
 
