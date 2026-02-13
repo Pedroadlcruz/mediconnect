@@ -137,12 +137,12 @@ class _ChatOverlayState extends State<ChatOverlay> {
           ),
           // Input field
           Container(
-            padding: const EdgeInsets.fromLTRB(
+            padding: EdgeInsets.fromLTRB(
               12,
               8,
               12,
-              12,
-            ), // Reduced bottom padding
+              12 + (isKeyboardOpen ? 0 : MediaQuery.of(context).padding.bottom),
+            ), // Adjusted for safe area
             decoration: BoxDecoration(
               color: Colors.grey[850],
               border: Border(top: BorderSide(color: Colors.grey[700]!)),

@@ -214,14 +214,20 @@ class _CallView extends StatelessWidget {
 
                 // Controls
                 Positioned(
-                  bottom: 30,
+                  bottom: 0,
                   left: 0,
                   right: 0,
-                  child: _CallControls(
-                    roomId: state.roomId,
-                    isAudioOnly: state.isAudioOnly,
-                    isMuted: state.isMuted,
-                    isCameraOff: state.isCameraOff,
+                  child: SafeArea(
+                    top: false,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: _CallControls(
+                        roomId: state.roomId,
+                        isAudioOnly: state.isAudioOnly,
+                        isMuted: state.isMuted,
+                        isCameraOff: state.isCameraOff,
+                      ),
+                    ),
                   ),
                 ),
               ],
