@@ -1,6 +1,6 @@
 # MediConnect
 
-App de Telemedicina WebRTC resiliente para zonas rurales.
+Implementación de una solución de asistencia remota para cerrar la brecha de salud entre zonas urbanas y rurales. El núcleo del problema técnico es la orquestación de señalización y flujo de medios en condiciones de conectividad inestable, priorizando la estabilidad del enlace, el manejo profesional de permisos y la seguridad de los datos sensibles del paciente mediante una arquitectura escalable y resiliente.
 
 ## 🚀 Cómo correr el proyecto
 
