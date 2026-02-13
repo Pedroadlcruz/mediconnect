@@ -2,6 +2,10 @@
 
 Implementación de una solución de asistencia remota para cerrar la brecha de salud entre zonas urbanas y rurales. El núcleo del problema técnico es la orquestación de señalización y flujo de medios en condiciones de conectividad inestable, priorizando la estabilidad del enlace, el manejo profesional de permisos y la seguridad de los datos sensibles del paciente mediante una arquitectura escalable y resiliente.
 
+## 🎥 Demo
+
+Puedes ver un video demostrativo del avance/MVP aquí: [Ver Demo](https://docs.google.com/videos/d/1NF1cT0SC4udx1FGRa3llg1IiLmlEVgLwVpOQqE9j8WQ/edit?usp=sharing)
+
 ## 🚀 Cómo correr el proyecto
 
 1.  **Clonar el repositorio**:
@@ -41,6 +45,7 @@ El proyecto sigue **Clean Architecture** con patrón **BLoC**.
 
 -   **Flutter WebRTC**: Videollamada P2P.
 -   **Firebase Firestore**: Señalización WebRTC y Chat.
+    -   Consulta el detalle en: [Arquitectura de Señalización](./SIGNALING_ARCHITECTURE.md)
 -   **Firebase Auth**: Autenticación con roles (Doctor/Paciente).
 -   **Shorebird**: Actualizaciones OTA (Over-The-Air).
 
