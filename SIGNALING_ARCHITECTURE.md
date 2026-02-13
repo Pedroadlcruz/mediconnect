@@ -36,6 +36,8 @@ sequenceDiagram
     Note over Caller, Callee: Conexión P2P Establecida (Media Stream)
 ```
 
+[Ver diagrama en Mermaid Live Editor](https://mermaid.ai/app/projects/eb8d7b2e-ad81-4f3b-9bbd-84fe4cbd1e41/diagrams/7a82951c-cf42-48fd-85ee-f3a83e97eef9/share/invite/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2N1bWVudElEIjoiN2E4Mjk1MWMtY2Y0Mi00OGZkLTg1ZWUtZjNhODNlOTdlZWY5IiwiYWNjZXNzIjoiVmlldyIsImlhdCI6MTc3MDk4NTM4OH0.DoGuWsolBRo19JorHd7EOC7_CXFBOoZCfOHdCFbrtMo)
+
 ## Estructura en Firestore
 
 La base de datos NoSQL se estructura para soportar este flujo de la siguiente manera:
